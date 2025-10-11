@@ -1,3 +1,4 @@
+import { UrlShortenerForm } from "@/components/urls/url-shortener-form";
 import Image from "next/image";
 
 export default function Home() {
@@ -11,6 +12,7 @@ export default function Home() {
           Paste your url and get a short one. Its free and easy to use paste
           your long url here
         </p>
+        <UrlShortenerForm />
       </div>
     </div>
   );
