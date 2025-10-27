@@ -1,55 +1,100 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-
-import { zodResolver } from "@hookform/resolvers/zod";
-import { UrlFormData, urlSchema } from "@/lib/types";
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+} from "../ui/form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { UrlFormData, urlSchema } from "@/lib/types";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
+import { usePathname, useRouter } from "next/navigation";
+import { useState } from "react";
+import { shortenUrl } from "@/server/actions/urls/shorten-url";
 
-export const UrlShortenerForm = () => {
+export function UrlShortenerForm() {
+  const router = useRouter();
+  const pathName = usePathname();
+
+  const [shortUrl, setShortUrl] = useState<string | null>(null);
+  const [shortCode, setShortCode] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const form = useForm<UrlFormData>({
     resolver: zodResolver(urlSchema),
     defaultValues: {
       url: "",
     },
   });
-  return (
-    <div className="w-full max-w-2xl mx-auto">
-      <Form {...form}>
-        <form className="space-y-8">
-          <FormField
-            control={form.control}
-            name="url"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Username</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="enter your long url to make it short"
-                    {...field}
-                    disabled={false}
-                  />
-                </FormControl>
 
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Button type="submit" disabled={false}>
-            Shorten
-          </Button>
-        </form>
-      </Form>
-    </div>
+  const onSubmit = async (data: UrlFormData) => {
+    setIsLoading(true);
+    setError(null);
+    setShortCode(null);
+    setShortUrl(null);
+    try {
+      const formData = new FormData();
+      formData.append("url", data.url);
+
+      const response = await shortenUrl(formData);
+
+      if (response.success && response.data) {
+        setShortUrl(response.data.shortUrl);
+
+        const shortCodeMatch = response.data.shortUrl.match(/\/r\/([^/]+)$/);
+
+        if (shortCodeMatch && shortCodeMatch[1]) {
+          setShortCode(shortCodeMatch[1]);
+        }
+      }
+    } catch (error) {
+      setError("An error occured now , please try again");
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  return (
+    <>
+      <div className="w-full max-w-2xl mx-auto ">
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <div className="flex flex-col sm:flex-row gap-2">
+              <FormField
+                control={form.control}
+                name="url"
+                render={({ field }) => (
+                  <FormItem className="flex-1">
+                    <FormControl>
+                      <Input
+                        placeholder="paste your long url here"
+                        {...field}
+                        disabled={false}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <Button type="submit" disabled={isLoading}>
+                {isLoading ? (
+                  <>
+                    <span className="mr-2 size-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+                    shortening...
+                  </>
+                ) : (
+                  "shorten"
+                )}
+              </Button>
+            </div>
+          </form>
+        </Form>
+      </div>
+    </>
   );
-};
+}
