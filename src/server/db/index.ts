@@ -1,9 +1,9 @@
 import postgres from "postgres";
-import * as schema from "./schema";
 import { drizzle } from "drizzle-orm/postgres-js";
+import * as schema from "./schema";
 
 const connectionString =
-  process.env.DATABASE_URL || "localhost://postrges:3000";
+  process.env.DATABASE_URL || "postgresql://localhost:3000/url";
 
 const client = postgres(connectionString, {
   prepare: false,

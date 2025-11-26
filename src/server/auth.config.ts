@@ -3,8 +3,8 @@ import GitHub from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import z from "zod";
-import { db } from "./server/db";
-import { users } from "./server/db/schema";
+import { db } from "./db";
+import { users } from "./db/schema";
 import { eq } from "drizzle-orm";
 import bcrypt from "bcryptjs";
 
