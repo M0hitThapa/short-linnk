@@ -7,6 +7,7 @@ import { nanoid } from "nanoid";
 import { db } from "@/server/db";
 import { urls } from "@/server/db/schema";
 import { revalidatePath } from "next/cache";
+import { auth } from "@/server/auth";
 
 const shortenUrlSchema = z.object({
   url: z.url(),
@@ -18,6 +19,8 @@ export async function shortenUrl(formData: FormData): Promise<
   }>
 > {
   try {
+    const session = await auth();
+    const userId = session?.user?.id;
     const url = formData.get("url") as string;
 
     const validatedFields = shortenUrlSchema.safeParse({
@@ -48,6 +51,7 @@ export async function shortenUrl(formData: FormData): Promise<
       shortCode,
       createdAt: new Date(),
       updatedAt: new Date(),
+      userId: userId || null,
     });
 
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
