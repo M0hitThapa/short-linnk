@@ -55,7 +55,7 @@ export async function shortenUrl(formData: FormData): Promise<
     });
 
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
-    const shortUrl = `${baseUrl}/r${shortCode}`;
+    const shortUrl = `${baseUrl}/${shortCode}`;
     revalidatePath("/");
 
     return {
