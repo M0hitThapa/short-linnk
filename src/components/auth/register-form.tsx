@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import z, { email } from "zod";
+import z from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
@@ -56,7 +56,7 @@ export default function RegisterForm() {
       }
 
       router.push("/login?registered=true");
-    } catch (error) {
+    } catch {
       setError("an error occured please try again");
     } finally {
       setIsLoading(false);

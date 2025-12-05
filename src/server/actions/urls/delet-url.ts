@@ -37,8 +37,8 @@ export async function deleteUrl(urlId: number): Promise<ApiResponse<null>> {
       success: true,
       data: null,
     };
-  } catch (error) {
-    console.log("error deleting url, error");
+  } catch {
+    console.log("error deleting url");
     return {
       success: false,
       error: "An error occured",

@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { getUrlByShortCode } from "@/server/actions/urls/get-url";
-import { AlertTriangle, ExternalLink } from "lucide-react";
+import { AlertTriangle } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";

@@ -10,7 +10,6 @@ import { UserUrlsTable } from "@/components/urls/user-urls-table";
 import { getUserUrls } from "@/server/actions/urls/get-user-urls";
 import { auth } from "@/server/auth";
 import { Metadata } from "next";
-import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Dashboard | ShortLink",

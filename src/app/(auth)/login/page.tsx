@@ -6,6 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Suspense } from "react";
 
 export default async function LoginPage() {
   return (
@@ -27,7 +28,9 @@ export default async function LoginPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <LoginForm />
+            <Suspense fallback={<div className="h-[400px] flex items-center justify-center">Loading...</div>}>
+              <LoginForm />
+            </Suspense>
           </CardContent>
         </Card>
       </div>

@@ -9,7 +9,7 @@ export function isValidUrl(url: string): boolean {
   try {
     const urlObj = new URL(url);
     return urlObj.protocol === "https:" || urlObj.protocol === "http:";
-  } catch (error) {
+  } catch {
     return false;
   }
 }

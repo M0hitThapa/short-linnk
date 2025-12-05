@@ -12,18 +12,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { UrlFormData, urlSchema } from "@/lib/types";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { shortenUrl } from "@/server/actions/urls/shorten-url";
-import { Card, CardContent, CardDescription } from "../ui/card";
+import { Card, CardContent } from "../ui/card";
 import { Copy } from "lucide-react";
 
 export function UrlShortenerForm() {
-  const router = useRouter();
-  const pathName = usePathname();
-
   const [shortUrl, setShortUrl] = useState<string | null>(null);
-  const [shortCode, setShortCode] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const form = useForm<UrlFormData>({
@@ -36,7 +31,6 @@ export function UrlShortenerForm() {
   const onSubmit = async (data: UrlFormData) => {
     setIsLoading(true);
     setError(null);
-    setShortCode(null);
     setShortUrl(null);
     try {
       const formData = new FormData();
@@ -46,12 +40,6 @@ export function UrlShortenerForm() {
 
       if (response.success && response.data) {
         setShortUrl(response.data.shortUrl);
-
-        const shortCodeMatch = response.data.shortUrl.match(/\/([^/]+)$/);
-
-        if (shortCodeMatch && shortCodeMatch[1]) {
-          setShortCode(shortCodeMatch[1]);
-        }
       }
     } catch (error) {
       setError("An error occured now , please try again");

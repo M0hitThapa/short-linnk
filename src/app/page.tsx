@@ -1,5 +1,4 @@
 import { UrlShortenerForm } from "@/components/urls/url-shortener-form";
-import Image from "next/image";
 
 export default function Home() {
   return (
