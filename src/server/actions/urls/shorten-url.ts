@@ -54,7 +54,8 @@ export async function shortenUrl(formData: FormData): Promise<
       userId: userId || null,
     });
 
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+    const baseUrl =
+      process.env.NEXT_PUBLIC_APP_URL || "https://short-linnk.vercel.app";
     const shortUrl = `${baseUrl}/${shortCode}`;
     revalidatePath("/");
 
