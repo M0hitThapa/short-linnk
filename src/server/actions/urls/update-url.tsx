@@ -4,30 +4,29 @@ import { ApiResponse } from "@/lib/types";
 import { auth } from "@/server/auth";
 import { db } from "@/server/db";
 import { urls } from "@/server/db/schema";
+import { revalidatePath } from "next/cache";
+import { z } from "zod";
 import { eq } from "drizzle-orm";
-import z from "zod";
 
 const updateUrlSchema = z.object({
   id: z.coerce.number(),
   customCode: z
     .string()
-    .min(255, "custom code must be less than 255 charcters")
-    .regex(/^[a-zA-Z0-9_-]+$/, "custom code must be alphanumeric and hyphen"),
+    .max(255, "Custom code must be less than 255 characters")
+    .regex(/^[a-zA-Z0-9_-]+$/, "Custom code must be alphanumeric or hyphen"),
 });
 
-export async function updateUrl(formData: FormData): Promise<
-  ApiResponse<{
-    shortUrl: string;
-  }>
-> {
+export async function updateUrl(
+  formData: FormData
+): Promise<ApiResponse<{ shortUrl: string }>> {
   try {
     const session = await auth();
-    const userId = await session?.user?.id;
+    const userId = session?.user?.id;
 
     if (!userId) {
       return {
         success: false,
-        error: "you need to authenticate to use custom code ",
+        error: "You must be logged in to update a URL",
       };
     }
 
@@ -42,7 +41,7 @@ export async function updateUrl(formData: FormData): Promise<
         error:
           validatedFields.error.flatten().fieldErrors.id?.[0] ||
           validatedFields.error.flatten().fieldErrors.customCode?.[0] ||
-          "Invalid url id",
+          "Invalid URL ID",
       };
     }
 
@@ -56,19 +55,19 @@ export async function updateUrl(formData: FormData): Promise<
     if (!existingUrl) {
       return {
         success: false,
-        error: "url not found or you dont have permission to update it ",
+        error: "URL not found or you don't have permission to update it",
       };
     }
 
-    const existCode = await db.query.urls.findFirst({
+    const codeExists = await db.query.urls.findFirst({
       where: (urls, { eq, and, ne }) =>
-        and(eq(urls.shortCode, customCode), ne(urls.userId, userId)),
+        and(eq(urls.shortCode, customCode), ne(urls.id, id)),
     });
 
-    if (existCode) {
+    if (codeExists) {
       return {
         success: false,
-        error: "code already exist",
+        error: "Custom code already exists",
       };
     }
 
@@ -76,23 +75,24 @@ export async function updateUrl(formData: FormData): Promise<
       .update(urls)
       .set({
         shortCode: customCode,
-        createdAt: new Date(),
+        updatedAt: new Date(),
       })
       .where(eq(urls.id, id));
 
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "localhost://3000";
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
     const shortUrl = `${baseUrl}/${customCode}`;
+
+    revalidatePath("/dashboard");
 
     return {
       success: true,
       data: { shortUrl },
     };
   } catch (error) {
-    console.log("failed to update url", error);
-
+    console.error("Failed to update URL", error);
     return {
       success: false,
-      error: "failed to update url",
+      error: "An error occurred",
     };
   }
 }
