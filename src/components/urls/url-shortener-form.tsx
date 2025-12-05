@@ -47,7 +47,7 @@ export function UrlShortenerForm() {
       if (response.success && response.data) {
         setShortUrl(response.data.shortUrl);
 
-        const shortCodeMatch = response.data.shortUrl.match(/\/r\/([^/]+)$/);
+        const shortCodeMatch = response.data.shortUrl.match(/\/([^/]+)$/);
 
         if (shortCodeMatch && shortCodeMatch[1]) {
           setShortCode(shortCodeMatch[1]);
@@ -82,6 +82,7 @@ export function UrlShortenerForm() {
                   <FormItem className="flex-1">
                     <FormControl>
                       <Input
+                        className="h-12"
                         placeholder="paste your long url here"
                         {...field}
                         disabled={false}
@@ -92,7 +93,11 @@ export function UrlShortenerForm() {
                 )}
               />
 
-              <Button type="submit" disabled={isLoading}>
+              <Button
+                type="submit"
+                disabled={isLoading}
+                className="cursor-pointer py-6 px-6 hover:outline-4 outline-offset-1 outline-rose-400 dark:hover:outline-rose-500 rounded shadow-md/30 shadow-neutral-800 dark:shadow-neutral-300"
+              >
                 {isLoading ? (
                   <>
                     <span className="mr-2 size-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
@@ -110,23 +115,23 @@ export function UrlShortenerForm() {
             )}
 
             {shortUrl && (
-              <Card>
+              <Card className="border-4 border-neutral-200 dark:border-neutral-700 ">
                 <CardContent className="p-4">
                   <p className="text-sm font-medium text-muted-foreground mb-2">
                     Your Shortened url:
                   </p>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 ">
                     <Input
                       type="text"
                       value={shortUrl}
                       readOnly
-                      className="shrink-0"
+                      className="shrink-0 max-w-[550px] h-12"
                     />
                     <Button
                       variant="outline"
                       type="button"
                       onClick={copyToClipboard}
-                      className="shrink-0"
+                      className="shrink-0 py-6 px-6"
                     >
                       <Copy className="size-4 mr-1" />
                       Copy
