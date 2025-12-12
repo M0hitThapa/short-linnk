@@ -96,7 +96,7 @@ export function EditUrlModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md border border-neutral-200 dark:border-neutral-800">
         <DialogHeader>
           <DialogTitle>Edit Short URL</DialogTitle>
           <DialogDescription>
@@ -136,10 +136,15 @@ export function EditUrlModal({
                 variant={"outline"}
                 onClick={() => onOpenChange(false)}
                 disabled={isLoading}
+                className="cursor-pointer"
               >
                 Cancel
               </Button>
-              <Button type="submit" disabled={isLoading}>
+              <Button
+                type="submit"
+                disabled={isLoading}
+                className="cursor-pointer"
+              >
                 {isLoading ? (
                   <>
                     <Loader2 className="animate-spin size-4 mr-2" />

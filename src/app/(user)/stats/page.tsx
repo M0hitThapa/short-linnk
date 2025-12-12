@@ -38,7 +38,7 @@ export default async function PublicStatsPage() {
       </p>
 
       <div className="grid gap-8 md:grid-cols-2 mb-8">
-        <Card className="shadow-sm">
+        <Card className="border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950">
           <CardHeader className="pb-2">
             <CardTitle className="text-lg">Total URLs Shortened</CardTitle>
             <CardDescription>
@@ -50,7 +50,7 @@ export default async function PublicStatsPage() {
           </CardContent>
         </Card>
 
-        <Card className="shadow-sm">
+        <Card className="border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950">
           <CardHeader className="pb-2">
             <CardTitle className="text-lg">Total Clicks</CardTitle>
             <CardDescription>
@@ -64,7 +64,7 @@ export default async function PublicStatsPage() {
       </div>
 
       <div className="text-center">
-        <Card className="shadow-sm mb-8">
+        <Card className="border border-neutral-200 dark:border-neutral-800 mb-8 bg-white dark:bg-neutral-950">
           <CardHeader>
             <CardTitle>Want to see your personal statistics?</CardTitle>
             <CardDescription>
@@ -73,10 +73,7 @@ export default async function PublicStatsPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="flex justify-center gap-4">
-            <Button
-              asChild
-              className="cursor-pointer hover:outline-4 outline-offset-1 outline-rose-400 dark:hover:outline-rose-500 rounded shadow-md/30 shadow-neutral-800 dark:shadow-neutral-300"
-            >
+            <Button asChild className="rounded cursor-pointer">
               <Link href="/register">Sign Up</Link>
             </Button>
             <Button variant="outline" asChild>

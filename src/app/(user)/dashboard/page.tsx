@@ -28,7 +28,7 @@ export default async function DashboardPage() {
       <h1 className="text-3xl font-bold mb-8 text-center">Dashboard</h1>
 
       <div className="grid gap-8">
-        <Card className="shadow-sm">
+        <Card className=" border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950">
           <CardHeader>
             <CardTitle>Create New Short URL</CardTitle>
             <CardDescription>
@@ -41,7 +41,7 @@ export default async function DashboardPage() {
           </CardContent>
         </Card>
 
-        <Card className="shadow-sm border border-dashed">
+        <Card className="shadow-sm border border-dashed border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950">
           <CardHeader>
             <CardTitle>Your URLs</CardTitle>
             <CardDescription>

@@ -20,7 +20,7 @@ export default async function RegisterPage() {
             Enter your details to create your account{" "}
           </p>
         </div>
-        <Card>
+        <Card className="border border-neutral-200 dark:border-neutral-800">
           <CardHeader className="space-y-1">
             <CardTitle>Sign Up</CardTitle>
             <CardDescription>

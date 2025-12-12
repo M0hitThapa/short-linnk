@@ -68,7 +68,7 @@ export function QrCodeModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md border border-neutral-200 dark:border-neutral-800">
         <DialogHeader>
           <DialogTitle>QR Code for your Short URL</DialogTitle>
         </DialogHeader>
@@ -90,7 +90,10 @@ export function QrCodeModal({
               <p className="text-sm text-center text-muted-foreground">
                 Scan the QR code to open the link in your device&apos;s browser.
               </p>
-              <Button onClick={downloadQRCode} className="w-full">
+              <Button
+                onClick={downloadQRCode}
+                className="w-full cursor-pointer"
+              >
                 <Download className="size-4 mr-2" />
                 Download QR Code
               </Button>

@@ -20,15 +20,18 @@ export default async function LoginPage() {
             Enter the credentials to login into your account
           </p>
         </div>
-        <Card>
+        <Card className="border border-neutral-200 dark:border-neutral-800">
           <CardHeader className="space-y-1">
             <CardTitle>Sign In</CardTitle>
-            <CardDescription>
-              Choose a sign in method to continue to your account
-            </CardDescription>
           </CardHeader>
           <CardContent>
-            <Suspense fallback={<div className="h-[400px] flex items-center justify-center">Loading...</div>}>
+            <Suspense
+              fallback={
+                <div className="h-[400px] flex items-center justify-center">
+                  Loading...
+                </div>
+              }
+            >
               <LoginForm />
             </Suspense>
           </CardContent>

@@ -19,6 +19,7 @@ import {
   SheetTrigger,
 } from "../ui/sheet";
 import { ThemeToggle } from "../ui/theme-toggle";
+import { Logo } from "../logo";
 
 export function Header() {
   const { status } = useSession();
@@ -27,9 +28,7 @@ export function Header() {
   return (
     <header className="relative max-w-5xl mx-auto">
       <div className="container mx-auto flex items-center justify-between p-4">
-        <Link href={"/"} className="text-2xl font-bold">
-          ShortLink
-        </Link>
+        <Logo />
 
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-2">
@@ -62,7 +61,7 @@ export function Header() {
 
               <Button
                 onClick={() => signOut()}
-                className="cursor-pointer hover:outline-4 outline-offset-1 outline-rose-400 dark:hover:outline-rose-500 rounded shadow-md/30 shadow-neutral-800 dark:shadow-neutral-300"
+                className="cursor-pointer rounded "
               >
                 <LogOut className="size-4" />
                 Sign Out
@@ -70,20 +69,14 @@ export function Header() {
             </>
           ) : (
             <>
-              <Button
-                asChild
-                className="cursor-pointer hover:outline-4 outline-offset-1 outline-rose-400 dark:hover:outline-rose-500 rounded shadow-md/30 shadow-neutral-800 dark:shadow-neutral-300"
-              >
+              <Button asChild className="cursor-pointer rounded">
                 <Link href={"/login"} className="flex items-center gap-1">
                   <LogIn className="size-4" />
                   Sign In
                 </Link>
               </Button>
 
-              <Button
-                asChild
-                className="cursor-pointer hover:outline-4 outline-offset-1 outline-rose-400 dark:hover:outline-rose-500 rounded shadow-md/30 shadow-neutral-800 dark:shadow-neutral-300"
-              >
+              <Button asChild className="cursor-pointer rounded">
                 <Link href={"/register"} className="flex items-center gap-1">
                   <UserPlus className="size-4" />
                   Sign Up
@@ -123,7 +116,7 @@ export function Header() {
                     <Button variant={"ghost"} size={"sm"} asChild>
                       <Link
                         href={"/dashboard"}
-                        className="flex items-center gap-2 justify-start w-full"
+                        className="flex items-center gap-1"
                       >
                         <LayoutDashboard className="size-4" />
                         Dashboard
@@ -133,7 +126,7 @@ export function Header() {
                     <Button variant={"ghost"} size={"sm"} asChild>
                       <Link
                         href={"/dashboard/stats"}
-                        className="flex items-center gap-2 justify-start w-full"
+                        className="flex items-center gap-1"
                       >
                         <LayoutDashboard className="size-4" />
                         My Stats
@@ -141,33 +134,29 @@ export function Header() {
                     </Button>
 
                     <Button
-                      variant={"ghost"}
-                      size={"sm"}
                       onClick={() => signOut()}
+                      className="cursor-pointer rounded "
                     >
                       <LogOut className="size-4" />
-                      Logout
+                      Sign Out
                     </Button>
                   </>
                 ) : (
                   <>
-                    <Button variant={"ghost"} size={"sm"} asChild>
-                      <Link
-                        href={"/login"}
-                        className="flex items-center gap-2 justify-start w-full"
-                      >
+                    <Button asChild className="cursor-pointer rounded">
+                      <Link href={"/login"} className="flex items-center gap-1">
                         <LogIn className="size-4" />
-                        Login
+                        Sign In
                       </Link>
                     </Button>
 
-                    <Button variant={"ghost"} size={"sm"} asChild>
+                    <Button asChild className="cursor-pointer rounded">
                       <Link
                         href={"/register"}
-                        className="flex items-center gap-2 justify-start w-full"
+                        className="flex items-center gap-1"
                       >
                         <UserPlus className="size-4" />
-                        Register
+                        Sign Up
                       </Link>
                     </Button>
                   </>

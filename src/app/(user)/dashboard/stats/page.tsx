@@ -140,17 +140,19 @@ export default function StatsPage() {
       <h1 className="text-3xl font-bold mb-8 text-center">URL Statistics</h1>
 
       <div className="grid gap-8 md:grid-cols-3 mb-8">
-        <Card className="shadow-sm">
+        <Card className="border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950">
           <CardHeader className="pb-2">
             <CardTitle>Total URLs</CardTitle>
-            <CardDescription>Number of URLs you&apos;ve created</CardDescription>
+            <CardDescription>
+              Number of URLs you&apos;ve created
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <p className="text-3xl font-bold">{userUrls.length}</p>
           </CardContent>
         </Card>
 
-        <Card className="shadow-sm">
+        <Card className="border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950">
           <CardHeader className="pb-2">
             <CardTitle>Total Clicks</CardTitle>
             <CardDescription>Total clicks acroos all URLs</CardDescription>
@@ -160,7 +162,7 @@ export default function StatsPage() {
           </CardContent>
         </Card>
 
-        <Card className="shadow-sm">
+        <Card className="border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950">
           <CardHeader className="pb-2">
             <CardTitle>Average Clicks</CardTitle>
             <CardDescription>Average clicks per URL</CardDescription>
@@ -171,7 +173,7 @@ export default function StatsPage() {
         </Card>
       </div>
 
-      <Card className="shadow-sm">
+      <Card className="border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950">
         <CardHeader>
           <CardTitle>Top Performing URLs</CardTitle>
           <CardDescription>Top 5 URLs with most clicks</CardDescription>
@@ -184,7 +186,7 @@ export default function StatsPage() {
                 <TabsTrigger value="pie">Pie Chart</TabsTrigger>
               </TabsList>
               <TabsContent value="bar" className="min-h-[400px] mt-4">
-                <Card>
+                <Card className="border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950">
                   <CardHeader>
                     <CardTitle>URL Perfomance</CardTitle>
                     <CardDescription>
@@ -243,7 +245,7 @@ export default function StatsPage() {
                 </Card>
               </TabsContent>
               <TabsContent value="pie" className="min-h-[400px] mt-4">
-                <Card className="flex flex-col">
+                <Card className="flex flex-col border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950">
                   <CardHeader className="items-center pb-0">
                     <CardTitle>URL Clicks Distrubtion</CardTitle>
                     <CardDescription>

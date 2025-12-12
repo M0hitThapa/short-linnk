@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { deleteUrl } from "@/server/actions/urls/delet-url";
 import { QrCodeModal } from "../modals/qr-code-modal";
 import { EditUrlModal } from "../modals/edit-url-modal";
+import { CopyIcon } from "../icons/copy";
 
 interface Url {
   id: number;
@@ -39,9 +40,6 @@ export function UserUrlsTable({ urls }: UserUrlsTableProps) {
 
     try {
       await navigator.clipboard.writeText(shortUrl);
-      toast.success("Short URL copied to clipboard", {
-        description: "The short URL has been copied to your clipboard",
-      });
     } catch (error) {
       console.error("Failed to copy short URL to clipboard", error);
     }
@@ -112,7 +110,7 @@ export function UserUrlsTable({ urls }: UserUrlsTableProps) {
       <div className="overflow-x-auto">
         <table className="w-full">
           <thead>
-            <tr className="border-b">
+            <tr className="border-b border-neutral-200 dark:border-neutral-800">
               <th className="text-left py-3 px-4 font-medium">Original URL</th>
               <th className="text-left py-3 px-4 font-medium">Short URL</th>
               <th className="text-left py-3 px-4 font-medium">Clicks</th>
@@ -127,7 +125,10 @@ export function UserUrlsTable({ urls }: UserUrlsTableProps) {
               const shortUrl = `${baseUrl}/${url.shortCode}`;
 
               return (
-                <tr key={url.id} className="border-b hover:bg-muted/50">
+                <tr
+                  key={url.id}
+                  className="border-b  border-neutral-200 dark:border-neutral-800 hover:bg-muted/50"
+                >
                   <td className="py-3 px-4">
                     <div className="flex items-center">
                       <div
@@ -156,7 +157,7 @@ export function UserUrlsTable({ urls }: UserUrlsTableProps) {
                         onClick={() => copyToClipboard(url.shortCode)}
                         className="ml-2 size-8"
                       >
-                        <Copy className="size-4" />
+                        <CopyIcon className="size-4" />
                       </Button>
                     </div>
                   </td>
@@ -174,7 +175,7 @@ export function UserUrlsTable({ urls }: UserUrlsTableProps) {
                         variant={"ghost"}
                         size={"icon"}
                         onClick={() => showQrCode(url.shortCode)}
-                        className="size-8 text-primary hover:text-primary"
+                        className="size-8 text-primary hover:text-primary cursor-pointer"
                       >
                         <QrCode className="size-4" />
                       </Button>
@@ -182,7 +183,7 @@ export function UserUrlsTable({ urls }: UserUrlsTableProps) {
                         variant={"ghost"}
                         size={"icon"}
                         onClick={() => handleEdit(url.id, url.shortCode)}
-                        className="size-8 text-primary hover:text-primary"
+                        className="size-8 text-primary hover:text-primary cursor-pointer"
                       >
                         <Edit className="size-4" />
                       </Button>
@@ -191,7 +192,7 @@ export function UserUrlsTable({ urls }: UserUrlsTableProps) {
                         size={"icon"}
                         onClick={() => handleDelete(url.id)}
                         disabled={isDeleting === url.id}
-                        className="size-8 text-destructive hover:text-destructive"
+                        className="size-8 text-destructive hover:text-destructive cursor-pointer"
                       >
                         {isDeleting === url.id ? (
                           <div className="size-4 animate-spin rounded-full border-2 border-current border-t-transparent" />

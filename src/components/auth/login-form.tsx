@@ -37,7 +37,7 @@ export default function LoginForm() {
     const newUrl = new URL(window.location.href);
     newUrl.searchParams.delete("registered");
     router.replace(newUrl.toString(), undefined);
-  }, [searchParams, router]);
+  }, []);
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -102,11 +102,12 @@ export default function LoginForm() {
   };
   return (
     <div className="space-y-6">
-      <div className="grid gap-2">
+      {/* <div className="grid gap-2">
         <Button
           variant="outline"
           disabled={isLoading}
           onClick={handleGithubSIgnIn}
+          className="cursor-pointer border border-neutral-200 dark:border-neutral-800"
         >
           Sign in with Github
         </Button>
@@ -114,11 +115,12 @@ export default function LoginForm() {
           variant="outline"
           disabled={isLoading}
           onClick={handleGoogleSignIn}
+          className="cursor-pointer border border-neutral-200 dark:border-neutral-800"
         >
           Sign in with Google
         </Button>
-      </div>
-      <div className="relative">
+      </div> */}
+      {/* <div className="relative">
         <div className="absolute inset-0 flex items-center">
           <span className="w-full border-t" />
         </div>
@@ -127,7 +129,7 @@ export default function LoginForm() {
             or continue with
           </span>
         </div>
-      </div>
+      </div> */}
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">

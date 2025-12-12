@@ -15,7 +15,8 @@ import { Button } from "../ui/button";
 import { useState } from "react";
 import { shortenUrl } from "@/server/actions/urls/shorten-url";
 import { Card, CardContent } from "../ui/card";
-import { Copy } from "lucide-react";
+import { Copy, Loader2 } from "lucide-react";
+import { CopyIcon } from "../icons/copy";
 
 export function UrlShortenerForm() {
   const [shortUrl, setShortUrl] = useState<string | null>(null);
@@ -62,7 +63,7 @@ export function UrlShortenerForm() {
       <div className="w-full max-w-2xl mx-auto ">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <div className="flex flex-col sm:flex-row gap-2">
+            <div className="flex flex-col sm:flex-row gap-2 ">
               <FormField
                 control={form.control}
                 name="url"
@@ -70,7 +71,7 @@ export function UrlShortenerForm() {
                   <FormItem className="flex-1">
                     <FormControl>
                       <Input
-                        className="h-12"
+                        className="h-11 bg-white border-2 border-neutral-300 dark:border-neutral-800 "
                         placeholder="paste your long url here"
                         {...field}
                         disabled={false}
@@ -84,15 +85,15 @@ export function UrlShortenerForm() {
               <Button
                 type="submit"
                 disabled={isLoading}
-                className="cursor-pointer py-6 px-6 hover:outline-4 outline-offset-1 outline-rose-400 dark:hover:outline-rose-500 rounded shadow-md/30 shadow-neutral-800 dark:shadow-neutral-300"
+                className="cursor-pointer rounded-sm h-11 "
               >
                 {isLoading ? (
                   <>
-                    <span className="mr-2 size-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+                    <Loader2 className="animate-spin " />
                     shortening...
                   </>
                 ) : (
-                  "shorten"
+                  "short url"
                 )}
               </Button>
             </div>
@@ -103,7 +104,7 @@ export function UrlShortenerForm() {
             )}
 
             {shortUrl && (
-              <Card className="border-4 border-neutral-200 dark:border-neutral-700 ">
+              <Card className="border border-neutral-100 dark:border-neutral-800 ">
                 <CardContent className="p-4">
                   <p className="text-sm font-medium text-muted-foreground mb-2">
                     Your Shortened url:
@@ -115,15 +116,13 @@ export function UrlShortenerForm() {
                       readOnly
                       className="shrink-0 max-w-[550px] h-12"
                     />
-                    <Button
-                      variant="outline"
+                    <button
                       type="button"
                       onClick={copyToClipboard}
-                      className="shrink-0 py-6 px-6"
+                      className="bg-neutral-100 border-2 border-neutral-200 dark:border-neutral-800 p-2 rounded-md dark:bg-neutral-900"
                     >
-                      <Copy className="size-4 mr-1" />
-                      Copy
-                    </Button>
+                      <CopyIcon className="text-neutral-800 dark:text-neutral-200" />
+                    </button>
                   </div>
                 </CardContent>
               </Card>
